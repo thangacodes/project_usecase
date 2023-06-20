@@ -1,3 +1,7 @@
+variable "region" {
+  type = string
+  default = "ap-south-1"
+}
 variable "docker_image_tag" {
   type = string
 }
