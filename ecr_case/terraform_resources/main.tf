@@ -46,7 +46,7 @@ resource "aws_instance" "ecr_ec2" {
 
   iam_instance_profile = "ec2-admin-role"
   tags = {
-    "Name" = "ecr-ec2"
+    "Name" = "ecr-ec2-vm"
   }
 
 }
@@ -113,7 +113,7 @@ resource "aws_lb_target_group" "targetGroup" {
   protocol    = "HTTP"
   target_type = "instance"
   vpc_id      = "vpc-71c2281a"
-  name        = "terra-tg"
+  name        = "ecr-tg"
 }
 
 resource "aws_lb_target_group_attachment" "test" {
