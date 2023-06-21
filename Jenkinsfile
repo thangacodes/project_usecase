@@ -64,7 +64,8 @@ pipeline {
 		   cd private_key
 		   ls -lrt
 		   echo "executing aws ssm params cli"
-		   aws ssm get-parameter --name devexample.org --query Parameter.Value --region ap-south-1 --output text > admin.pem
+		   aws ssm get-parameter --name devexample.org --region ap-south-1 --with-decryption --query "Parameter.Value" --output text > admin.pem
+		   sleep 5
 		   ls -lrt
 		   chmod 0400 admin.pem
 		   sleep 3
