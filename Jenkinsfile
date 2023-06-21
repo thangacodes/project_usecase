@@ -58,6 +58,15 @@ pipeline {
                 sh '''
 		   pwd
 		   cd ecr_case/terraform_resources
+		   mkdir private_key
+		   ls -lrt
+		   echo "create a directory and switchover to it"
+		   cd private_key
+		   ls -lrt
+		   echo "executing aws ssm params cli"
+		   aws ssm get-parameter --name devexample.org --query "Parameter.Value" --output text >> private_key/admin.pem
+		   ls -lrt
+		   chmod 0400 admin.pem
 		   sleep 3
 		   echo "Going to validate the terraform scripts"
 		   terraform validate
@@ -81,12 +90,6 @@ pipeline {
             steps {
                 sh '''
                    cd ecr_case/terraform_resources/
-                   mkdir private_key
-                   echo "Executing aws-ssm-params cli"
-                   aws ssm get-parameter --name devexample.org --query "Parameter.Value" --output text >> private_key/admin.pem
-                   pwd
-                   ls -lrt
-		   chmod 0400 admin.pem
                    sleep 3
                    echo "Going to show us the terraform output"
                    terraform apply -var-file=dev.tfvars --auto-approve
