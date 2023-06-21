@@ -86,6 +86,7 @@ pipeline {
                    aws ssm get-parameter --name devexample.org --query "Parameter.Value" --output text >> private_key/admin.pem
                    pwd
                    ls -lrt
+		   chmod 0400 admin.pem
                    sleep 3
                    echo "Going to show us the terraform output"
 
