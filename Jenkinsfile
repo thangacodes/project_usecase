@@ -89,9 +89,9 @@ pipeline {
 		   chmod 0400 admin.pem
                    sleep 3
                    echo "Going to show us the terraform output"
-
                    terraform apply -var-file=dev.tfvars --auto-approve
                 '''
             }
         }
     }
+}
