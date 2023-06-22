@@ -62,13 +62,14 @@ pipeline {
 		   ls -lrt
 		   echo "create a directory and switchover to it"
 		   cd private_key
+                   touch admin.pem
 		   ls -lrt
 		   echo "EXTRACTING SSH_KEY FROM SSM-PARAMETER_STORE......"
                    #aws ssm get-parameter --name devexample.org --with-decryption --region ap-south-1 --output text --query Parameter.Value > admin.pem
 		   sleep 5
 		   ls -lrt
-		   chmod 0400 admin.pem
-		   sleep 3
+		   #chmod 0400 admin.pem
+		   #sleep 3
 		   echo "Going to validate the terraform scripts"
 		   terraform validate
 		'''
