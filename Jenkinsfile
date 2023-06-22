@@ -94,7 +94,7 @@ pipeline {
                    cd ecr_case/terraform_resources/
                    sleep 3
                    echo "Going to show us the terraform output"
-                   terraform apply -var-file=dev.tfvars --auto-approve
+                   terraform apply -var-file=dev.tfvars
                 '''
             }
         }
