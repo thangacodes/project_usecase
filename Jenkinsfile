@@ -65,7 +65,7 @@ pipeline {
                    #touch admin.pem
 		   ls -lrt
 		   echo "EXTRACTING SSH_KEY FROM SSM-PARAMETER_STORE......"
-                   aws ssm get-parameter --name devexample.org --with-decryption --region ap-south-1 --output text --query Parameter.Value > admin.pem
+                   aws ssm get-parameter --name jenkins_key --with-decryption --region ap-south-1 --output text --query Parameter.Value > admin.pem
 		   sleep 5
 		   ls -lrt
 		   chmod 0400 admin.pem
