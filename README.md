@@ -5,3 +5,5 @@ Project-I: Terraform Code, Bash scripts, Docker, ECR, security group, target gro
 
 Project-II: Static website deployment via Terraform code using S3 buckets.
 
+Project-III: Setting Transit Gateway for two different networks in aws instead vpc peering.
+
