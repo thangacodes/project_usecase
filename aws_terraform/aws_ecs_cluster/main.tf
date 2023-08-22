@@ -31,4 +31,17 @@ resource "aws_ecs_cluster" "cluster" {
 # If you have 4 cluster in ECS, some scenario you wants to remove a particular cluster. In this for_each will work as we expected.
 # It removes that particular cluster.
 
-
+### Provision multiple vm's
+resource "aws_instance" "vm" {
+  ami                    = local.ami_id
+  instance_type          = local.vm_type
+  key_name               = local.key
+  vpc_security_group_ids = [local.sgp]
+  for_each               = toset(local.vm_names)
+  tags = {
+    Environment  = local.env
+    CreationDate = local.date
+    Owner        = local.owner
+    CostCenter   = local.cost
+  }
+}
