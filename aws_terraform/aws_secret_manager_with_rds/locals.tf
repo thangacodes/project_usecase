@@ -1,7 +1,7 @@
 locals {
   default = {
     username  = "root"
-    password  = "login1-2"
+    password  = "secret"
     sensitive = true
   }
 }
@@ -28,3 +28,5 @@ locals {
     sgp           = "sg-0fb1052b659369aa8"
   }
 }
+
+## Note: We shouldn't hard code the password in the scripts. Instead, first create secrets in secret_manager and then call it in the tf scripts.
