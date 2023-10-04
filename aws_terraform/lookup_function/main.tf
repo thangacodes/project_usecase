@@ -3,7 +3,8 @@ resource "aws_instance" "vm" {
   instance_type               = lookup(var.ins_type, var.user_input, "t2.micro")
   vpc_security_group_ids      = local.default.sgp
   key_name                    = local.default.keyname
-  associate_public_ip_address = false
+  associate_public_ip_address = true
+  user_data                   = file("bootstrap.sh")
   availability_zone           = local.default.avail_zone
   tags                        = merge(var.tagging, { Name = "Lookup_VM" })
 }
