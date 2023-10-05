@@ -9,21 +9,21 @@ Project-III: Setting Transit Gateway for two different networks in aws instead v
 
 project stuff with terraform Automation:-
 
-aws_secret_manager_with_rds
+*aws_secret_manager_with_rds
 
-depends_on_argument
+*depends_on_argument
 
-ecr_case
+*ecr_case
 
-for_each_concepts
+*for_each_concepts
 
-lookup_function
+*lookup_function
 
-static_web_hosting_on_s3
+*static_web_hosting_on_s3
 
-tf_ec2_jenkins
+*tf_ec2_jenkins
 
-tf_module
+*tf_module
 
-vpc_ec2_jenkins
+*vpc_ec2_jenkins
 

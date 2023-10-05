@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/bash -xe
+exec > >(tee /tmp/tmp.log)
 # set -x       #If you want to enable degbug please go ahead.
 ######### GIT, JENKINS, TERRAFORM INSTALLATION ###########
 sudo yum update -y
@@ -18,3 +19,4 @@ sudo amazon-linux-extras install java-openjdk11 -y
 sudo yum install -y jenkins
 sudo systemctl start jenkins
 sudo systemctl enable jenkins
+sudo systemctl status jenkins.service
