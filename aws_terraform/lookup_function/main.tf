@@ -6,7 +6,7 @@ resource "aws_instance" "vm" {
   associate_public_ip_address = true
   user_data                   = file("bootstrap.sh")
   availability_zone           = local.default.avail_zone
-  tags                        = merge(var.tagging, { Name = "Lookup_VM" })
+  tags                        = merge(var.tagging, { Name = "Jenkins-CICD" })
 }
 
 ## S3 bucket creation
