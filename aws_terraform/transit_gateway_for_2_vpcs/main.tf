@@ -95,9 +95,9 @@ resource "aws_instance" "vpc-1-webvm" {
   vpc_security_group_ids      = [aws_security_group.sg1.id]
   availability_zone           = var.avail_zone
   subnet_id                   = aws_subnet.vpc-public-subnet1.id
-  user_data                   = file("webserver_conf.sh")
+  user_data                   = file("web_install_config.sh")
   tags = {
-    Name        = "VPC-TEST-1-WEBVM"
+    Name        = "VPC-TEST-1-WEBSVR"
     Owner       = "tm@example.com"
     Environment = "Development"
   }
@@ -110,9 +110,9 @@ resource "aws_instance" "vpc-2-webvm" {
   vpc_security_group_ids      = [aws_security_group.sg2.id]
   availability_zone           = var.avail_zone
   subnet_id                   = aws_subnet.vpc-public-subnet2.id
-  user_data                   = file("webserver_conf.sh")
+  user_data                   = file("web_install_config.sh")
   tags = {
-    Name        = "VPC-TEST-2-WEBVM"
+    Name        = "VPC-TEST-2-WEBSVR"
     Owner       = "tm@example.com"
     Environment = "Development"
   }
@@ -150,7 +150,27 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "test-vpc-2" {
     Owner       = "tm@example.com"
   }
 }
-############## CREATE SECURITY GROUP ###################3
+#################################################################################################################
+# Create route to transist gateway in route table 
+resource "aws_route" "tgw-route-1" {
+  route_table_id         = aws_route_table.vpc-test-rt1.id
+  destination_cidr_block = "16.16.0.0/16"
+  transit_gateway_id     = aws_ec2_transit_gateway.demo-tgw.id
+  depends_on = [
+    aws_ec2_transit_gateway.demo-tgw
+  ]
+}
+
+# Create route to transist gateway in route table 
+resource "aws_route" "tgw-route-2" {
+  route_table_id         = aws_route_table.vpc-test-rt2.id
+  destination_cidr_block = "15.15.0.0/16"
+  transit_gateway_id     = aws_ec2_transit_gateway.demo-tgw.id
+  depends_on = [
+    aws_ec2_transit_gateway.demo-tgw
+  ]
+}
+############## CREATE SECURITY GROUP FOR BOTH VPC's ###################3
 resource "aws_security_group" "sg1" {
   name        = "sg1"
   description = "allow ssh from internet and icmp from 10.2.0.0/24"
@@ -173,6 +193,12 @@ resource "aws_security_group" "sg1" {
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
+    cidr_blocks = ["16.16.1.0/24"]
   }
   egress {
     from_port   = 0
@@ -210,6 +236,12 @@ resource "aws_security_group" "sg2" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
+    cidr_blocks = ["15.15.1.0/24"]
+  }
   egress {
     from_port   = 0
     to_port     = 0
@@ -221,25 +253,5 @@ resource "aws_security_group" "sg2" {
     Environment = "Development"
     Owner       = "tm@example.com"
   }
-}
-#####################################################################3
-# Create route to transist gateway in route table 
-resource "aws_route" "tgw-route-1" {
-  route_table_id         = aws_route_table.vpc-test-rt1.id
-  destination_cidr_block = "16.16.0.0/16"
-  transit_gateway_id     = aws_ec2_transit_gateway.demo-tgw.id
-  depends_on = [
-    aws_ec2_transit_gateway.demo-tgw
-  ]
-}
-
-# Create route to transist gateway in route table 
-resource "aws_route" "tgw-route-2" {
-  route_table_id         = aws_route_table.vpc-test-rt2.id
-  destination_cidr_block = "15.15.0.0/16"
-  transit_gateway_id     = aws_ec2_transit_gateway.demo-tgw.id
-  depends_on = [
-    aws_ec2_transit_gateway.demo-tgw
-  ]
 }
 
