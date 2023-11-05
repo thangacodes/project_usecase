@@ -4,7 +4,7 @@ resource "aws_vpc" "vpc-test-1" {
     Name        = "vpc_demo_test_1"
     Environment = "Development"
     cidr_block  = var.vpc_cidr_test1
-    Owner       = "mt@example.com"
+    Owner       = "tm@example.com"
   }
 }
 resource "aws_vpc" "vpc-test-2" {
@@ -13,7 +13,7 @@ resource "aws_vpc" "vpc-test-2" {
     Name        = "vpc_demo_test_2"
     Environment = "Development"
     cidr_block  = var.vpc_cidr_test2
-    Owner       = "mt@example.com"
+    Owner       = "tm@example.com"
   }
 }
 
@@ -95,7 +95,7 @@ resource "aws_instance" "vpc-1-webvm" {
   vpc_security_group_ids      = [aws_security_group.sg1.id]
   availability_zone           = var.avail_zone
   subnet_id                   = aws_subnet.vpc-public-subnet1.id
-  user_data                   = file("web_install.sh")
+  user_data                   = file("webserver_conf.sh")
   tags = {
     Name        = "VPC-TEST-1-WEBVM"
     Owner       = "tm@example.com"
@@ -110,7 +110,7 @@ resource "aws_instance" "vpc-2-webvm" {
   vpc_security_group_ids      = [aws_security_group.sg2.id]
   availability_zone           = var.avail_zone
   subnet_id                   = aws_subnet.vpc-public-subnet2.id
-  user_data                   = file("web_install.sh")
+  user_data                   = file("webserver_conf.sh")
   tags = {
     Name        = "VPC-TEST-2-WEBVM"
     Owner       = "tm@example.com"
