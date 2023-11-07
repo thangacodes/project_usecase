@@ -49,6 +49,7 @@ The entire code is kept on GitHub. The link below,
   </footer>
 </Body>  
 </Html>
+END_HTML
 sudo systemctl stop httpd.service
 sudo systemctl start httpd.service
 sudo systemctl status httpd.service
