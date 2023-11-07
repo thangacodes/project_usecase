@@ -10,15 +10,15 @@ sudo cat << 'END_HTML' >/var/www/html/index.html
 <Html>     
 <Head>      
 <Title>     
-TransitGateway Online Page
-</Title>  
+TransitGateway Page
+</Title>   
 </Head>  
-<Body bgcolor="green">
-<b> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</b>
+<Body bgcolor="white">
+<b> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</b>
 <br>
 <br>
 <b>A. AWS TransitGateway!!!</b><br>  
-<b>B. TransitGateway Terraform Tutorial</b><br>  
+<b>B. Terraform Tutorial on TransitGateway.. </b><br>  
 <br>
 <b> On this page, we are giving running notes on what we are going to achieve using Terrafrom (IaC).</b>
 <br>
@@ -36,6 +36,17 @@ AWS Transit Gateway connects your Amazon Virtual Private Clouds (VPCs) and on-pr
 9. Open your local browsers, like <b>Chrome/Edge/Brave and try to access Webserver Endpoints with Port_Number:80</b><br>
 10.For example, on your browser, try accessing Web endpoints like <b>http://Public_IP:80/</b><br>
 11.Please ensure, You need, first and foremost, enable the HTTP port on the security group's inbound rule.
+<br>
+<br>
+The entire code is kept on GitHub. The link below, 
+<br>
+<br>
+<a href="https://github.com/thangacodes/project_usecase/tree/main/aws_terraform/transit_gateway_for_2_vpcs" target="_blank">thangacodes
+<br>
+<br>
+ <footer>
+      &copy; <em id="date"></em>Cloudbird.fun
+  </footer>
 </Body>  
 </Html>
 sudo systemctl stop httpd.service
