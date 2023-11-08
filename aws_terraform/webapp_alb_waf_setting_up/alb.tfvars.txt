@@ -1,0 +1,11 @@
+region         = "ap-south-1"
+ami_id         = "ami-02e94b011299ef128"
+vmspec         = "t2.micro"
+key            = "tfuser"
+cidr_block     = "15.15.0.0/16"
+pubsub_cidr    = "15.15.5.0/24"
+pubsub1_cidr   = "15.15.6.0/24"
+avail_zone1    = "ap-south-1a"
+avail_zone2    = "ap-south-1b"
+http_port      = 80
+instance_count = 2
