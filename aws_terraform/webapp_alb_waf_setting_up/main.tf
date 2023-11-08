@@ -14,14 +14,14 @@ resource "aws_internet_gateway" "demo" {
 resource "aws_subnet" "public" {
   vpc_id            = aws_vpc.demo.id
   cidr_block        = var.pubsub_cidr
-  availability_zone = "ap-south-1a"
+  availability_zone = var.avail_zone1
   tags              = merge(var.tags, { Name = "WAF-PUBLIC-SUBNET-1" })
 }
 
 resource "aws_subnet" "public2" {
   vpc_id            = aws_vpc.demo.id
   cidr_block        = var.pubsub1_cidr
-  availability_zone = "ap-south-1b"
+  availability_zone = var.avail_zone2
   tags              = merge(var.tags, { Name = "WAF-PUBLIC-SUBNET-1" })
 }
 
@@ -51,32 +51,33 @@ resource "aws_route" "igw-route-1" {
 }
 ### EC2 Target group creation followed by ALB creations
 resource "aws_lb_target_group" "waf-app" {
-  name     = "apache-web-waf-test"
-  port     = 80
+  name     = "APACHE-WEB-WAF-TEST"
+  port     = var.http_port
   protocol = "HTTP"
   vpc_id   = aws_vpc.demo.id
-  tags     = merge(var.tags, { Name = "apache-web-waf-test" })
+  tags     = merge(var.tags, { Name = "APACHE-WEB-WAF-TEST" })
 }
 
 resource "aws_lb_target_group_attachment" "test" {
   target_group_arn = aws_lb_target_group.waf-app.arn
-  target_id        = aws_instance.drift_detection.id
-  port             = 80
+  count            = length(aws_instance.drift_detection)
+  target_id        = aws_instance.drift_detection[count.index].id
+  port             = var.http_port
 }
 
 ####### ALB creation ##############
 resource "aws_alb" "waf-test-alb" {
-  name               = "Apache-web-waf-demo"
+  name               = "APACHE-WEB-WAF-ALB"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.waf-sgp.id]
   subnets            = [aws_subnet.public.id, aws_subnet.public2.id]
-  tags               = merge(var.tags, { Name = "Apache-Web-WAF-ALB" })
+  tags               = merge(var.tags, { Name = "APACHE-WEB-WAF-ALB" })
 }
 
 resource "aws_lb_listener" "apache" {
   load_balancer_arn = aws_alb.waf-test-alb.arn
-  port              = 80
+  port              = var.http_port
   protocol          = "HTTP"
   default_action {
     type             = "forward"
@@ -89,12 +90,14 @@ resource "aws_instance" "drift_detection" {
   ami                         = var.ami_id
   instance_type               = var.vmspec
   key_name                    = var.key
+  count                       = var.instance_count
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.public.id
   vpc_security_group_ids      = [aws_security_group.waf-sgp.id]
   user_data                   = file("web_conf.sh")
-  tags                        = merge(var.tags, { Name = "WebServer" })
+  tags                        = merge(var.tags, { Name = "WEBSERVER-${count.index + 1}" })
 }
+
 ### AWS EC2 Security Group creation #######
 resource "aws_security_group" "waf-sgp" {
   name        = "WAF-SGP"
