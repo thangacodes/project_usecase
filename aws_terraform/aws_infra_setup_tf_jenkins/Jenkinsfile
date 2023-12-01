@@ -26,7 +26,11 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 script {
-                    sh 'terraform init'
+                    sh '''
+                         pwd
+                         sleep 5
+                         terraform init
+                    '''
             }
         }
         }
