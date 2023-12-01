@@ -25,9 +25,7 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 script {
-                    dir('aws_terraform/aws_infra_setup_tf_jenkins') {
                     sh 'terraform init'
-                }
             }
         }
         }
