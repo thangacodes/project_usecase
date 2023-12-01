@@ -20,7 +20,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // git branch: 'main', url: 'https://github.com/thangacodes/project_usecase.git'
-                checkoutscm
+                checkout scm
             }
         }
         stage('Terraform Init') {
