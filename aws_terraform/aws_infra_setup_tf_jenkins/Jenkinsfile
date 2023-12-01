@@ -65,12 +65,11 @@ pipeline {
                 }
             }
         }
-
-    post {
-        always {
-            // Clean up artifacts, e.g., the Terraform plan file
-            deleteDir()
+        stage('Delete dir'){
+            steps{
+                // Clean up artifacts, e.g., the Terraform plan file
+                deleteDir()
+            }
         }
     }
-}
 }
