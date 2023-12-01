@@ -6,8 +6,8 @@ pipeline {
     }
 
     parameters {
-        choice(name: 'ENVIRONMENT', choices: ['dev', 'test', 'prod'], description: 'Select Environment')
-        choice(name: 'OPERATION', choices: ['plan', 'apply', 'destroy'], description: 'Select Terraform Actions')
+        choice(name: 'TF_VAR_environment', choices: ['dev', 'test', 'prod'], description: 'Select Environment')
+        choice(name: 'TERRAFORM_OPERATION', choices: ['plan', 'apply', 'destroy'], description: 'Select Terraform Operation')
     }
 
     // environment {
@@ -19,12 +19,13 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git branch: 'main', url: 'https://github.com/thangacodes/project_usecase.git'
             }
         }
         stage('Terraform Init') {
             steps {
                 script {
+                    dir('project_usecase/aws_terraform/aws_infra_setup_tf_jenkins') {
                     sh 'terraform init'
                 }
             }
@@ -33,10 +34,10 @@ pipeline {
             steps {
                 script {
                     // Check if the Terraform workspace exists, create if not
-                    def workspaceExists = sh(script: 'terraform workspace select ${ENVIRONMENT} || true', returnStatus: true) == 0
+                    def workspaceExists = sh(script: 'terraform workspace select ${TF_VAR_environment} || true', returnStatus: true) == 0
 
                     if (!workspaceExists) {
-                        sh "terraform workspace new ${ENVIRONMENT}"
+                        sh "terraform workspace new ${TF_VAR_environment}"
                     }
                 }
             }
@@ -46,16 +47,16 @@ pipeline {
             steps {
                 script {
                     // Run Terraform based on the selected operation
-                    switch(params.OPERATION) {
+                    switch(params.TERRAFORM_OPERATION) {
                         case 'plan':
-                            sh "terraform plan -var-file='${ENVIRONMENT}.tfvars' -out=tfplan"
+                            sh "terraform plan -var-file='${TF_VAR_environment}.tfvars' -out=tfplan"
                             break
                         case 'apply':
-                            sh "terraform plan -var-file='${ENVIRONMENT}.tfvars' -out=tfplan"
+                            sh "terraform plan -var-file='${TF_VAR_environment}.tfvars' -out=tfplan"
                             sh 'terraform apply -auto-approve tfplan'
                             break
                         case 'destroy':
-                            sh "terraform destroy -var-file='${ENVIRONMENT}.tfvars' -auto-approve"
+                            sh "terraform destroy -var-file='${TF_VAR_environment}.tfvars' -auto-approve"
                             break
                         default:
                             error "Invalid Terraform operation selected"
