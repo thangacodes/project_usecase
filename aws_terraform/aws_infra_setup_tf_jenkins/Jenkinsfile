@@ -36,6 +36,8 @@ pipeline {
                     def workspaceExists = sh(script: 'terraform workspace select ${TF_VAR_environment} || true', returnStatus: true) == 0
 
                     if (!workspaceExists) {
+                        sh "terraform workspace list"
+                        sleep 5
                         sh "terraform workspace new ${TF_VAR_environment}"
                     }
                 }
