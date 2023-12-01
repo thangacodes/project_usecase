@@ -28,7 +28,7 @@ pipeline {
                 script {
                     sh '''
                          pwd
-                         sleep 5
+                         cd aws_terraform/aws_infra_setup_tf_jenkins
                          terraform init
                     '''
             }
@@ -39,7 +39,7 @@ pipeline {
                 script {
                     // Check if the Terraform workspace exists, create if not
                     echo "Checking if ${TF_VAR_environment} is exist or not"
-                    def workspaceExists = sh(script: 'terraform workspace new ${TF_VAR_environment} || true', returnStatus: true) == 0
+                    def workspaceExists = sh(script: 'terraform workspace select ${TF_VAR_environment} || true', returnStatus: true) == 0
                     if (!workspaceExists) {
                         sh "terraform workspace new ${TF_VAR_environment}"
                         sh "terraform workspace list"
