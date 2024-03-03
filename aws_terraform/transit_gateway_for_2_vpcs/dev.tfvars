@@ -1,0 +1,10 @@
+## Declared Variables values should be called from this file.
+region             = "ap-south-1"
+vpc_cidr_test1     = "15.15.0.0/16"
+vpc_cidr_test2     = "16.16.0.0/16"
+vpc_pub_sub1_range = "15.15.1.0/24"
+vpc_pub_sub2_range = "16.16.1.0/24"
+ami                = "ami-02e94b011299ef128"
+vm_spec            = "t2.micro"
+webkey             = "tfuser"
+avail_zone         = "ap-south-1a"
