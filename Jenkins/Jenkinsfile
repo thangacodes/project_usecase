@@ -1,0 +1,24 @@
+@Library('my-k8s-library') _
+
+import hudson.model.*
+import hudson.EnvVars
+import groovy.json.JsonSlurperClassic
+import groovy.json.JsonBuilder
+import groovy.json.JsonOutput
+import groovy.json.*
+import java.net.URL
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                script {
+                  echo "Git code cloning in progress..."
+                  gitClone()
+                }
+            }
+        }
+    }
+}
