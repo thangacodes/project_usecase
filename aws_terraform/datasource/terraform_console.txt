@@ -8,6 +8,8 @@ $ terraform console
 4
 > length(data.aws_availability_zones.available.names)  //using length function
 4
+> length("raghavan")
+8
 
 > data.aws_availability_zones.available 
 {
