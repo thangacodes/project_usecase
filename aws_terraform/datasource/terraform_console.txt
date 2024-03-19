@@ -2,6 +2,10 @@
 $ terraform console
 ## Execute the following commands
 
+> length(["1", "2", "3"])
+3
+> length(["john", "percy", "biju", "sanoop"])
+4
 > length(data.aws_availability_zones.available.names)  //using length function
 4
 
