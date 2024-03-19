@@ -81,7 +81,7 @@ resource "aws_instance" "jenkins" {
   ami                         = data.aws_ami.amazon-ami.id
   key_name                    = aws_key_pair.sshkey.key_name
   vpc_security_group_ids      = [aws_security_group.jenkins.id]
-  subnet_id                   = aws_subnet.public.*.id
+  subnet_id                   = aws_subnet.public[0].id
   associate_public_ip_address = true
   user_data                   = file("init_script.sh")
   availability_zone           = data.aws_availability_zones.available.names[0]
