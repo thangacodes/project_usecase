@@ -1,0 +1,57 @@
+## To logon terraform console
+$ terraform console
+## Execute the following commands
+
+> length(data.aws_availability_zones.available.names)  //using length function
+4
+
+> data.aws_availability_zones.available 
+{
+  "all_availability_zones" = tobool(null)
+  "exclude_names" = toset(null) /* of string */
+  "exclude_zone_ids" = toset(null) /* of string */
+  "filter" = toset(null) /* of object */
+  "group_names" = toset([
+    "ap-south-1",
+    "ap-south-1-del-1",
+  ])
+  "id" = "ap-south-1"
+  "names" = tolist([
+    "ap-south-1-del-1a",
+    "ap-south-1a",
+    "ap-south-1b",
+    "ap-south-1c",
+  ])
+  "state" = tostring(null)
+  "timeouts" = null /* object */
+  "zone_ids" = tolist([
+    "aps1-del1-az1",
+    "aps1-az1",
+    "aps1-az3",
+    "aps1-az2",
+  ])
+}
+
+> data.aws_availability_zones.available.names
+tolist([
+  "ap-south-1-del-1a",
+  "ap-south-1a",
+  "ap-south-1b",
+  "ap-south-1c",
+])
+
+> data.aws_availability_zones.available.names[0]  //fetching names in array index
+"ap-south-1-del-1a"
+
+> data.aws_availability_zones.available.names[2]
+"ap-south-1b"
+
+> data.aws_availability_zones.available.id
+"ap-south-1"
+
+> lower("THIS IS DATA sOURCE filtering via terraform CONSOLE")   //lower function in terraform
+"this data source filtering via terraform console"
+
+> upper("this is data source filtering via terraform console")  //upper function in terraform
+"THIS IS DATA SOURCE FILTERING VIA TERRAFORM CONSOLE"
+>
