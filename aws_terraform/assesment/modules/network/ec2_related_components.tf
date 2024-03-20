@@ -86,6 +86,9 @@ resource "aws_instance" "jenkins" {
   # user_data                 = file("init_script.sh")
   availability_zone           = data.aws_availability_zones.available.names[0]
   depends_on                  = [aws_security_group.jenkins]
+  provisioner "local-exec" {
+    command = "echo ${aws_instance.jenkins.public_ip} >> ansible/hosts"
+  }
     connection {
     type        = "ssh"
     user        = "ec2-user"
