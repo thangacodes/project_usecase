@@ -83,21 +83,24 @@ resource "aws_instance" "jenkins" {
   vpc_security_group_ids      = [aws_security_group.jenkins.id]
   subnet_id                   = aws_subnet.public[0].id
   associate_public_ip_address = true
-  user_data                   = file("init_script.sh")
+  # user_data                 = file("init_script.sh")
   availability_zone           = data.aws_availability_zones.available.names[0]
   depends_on                  = [aws_security_group.jenkins]
-  tags                        = merge(var.tagging, { Name = "JENKINS-CICD" })
-}
+    connection {
+    type        = "ssh"
+    user        = "ec2-user"
+    agent       = false
+    private_key = file("network/var.key_name")
+    host        = aws_instance.mywork.public_ip
+  }
 provisioner "remote-exec"{
-  inline = ["echo 'Wait until SSH is ready'"]
-
-  connection{
-    type = "ssh"
-    user = "ec2-user"
-    private_key = file(local.private_key_path)
-    host        = aws_instance.jenkins.public_ip
-}
-}
-provisioner "local-exec"{
-  command = "ansible-playbook -i ${aws_instance.jenkins.public_ip}, --private-key ${local.private_key_path} ansible/jenkins.yml"
+  inline = ["echo 'Wait until SSH is ready'",
+    "sleep 30",
+    "echo 'Installing ansible2 on remote machine'",
+    "sudo amazon-linux-extras install ansible2 -y",
+    "ansible -m ping localhost",
+    "sudo cp -R ansible/ /tmp/",
+    "cd /tmp/ansible/",
+    "ansible-playbook jenkins.yml"]}
+  tags                        = merge(var.tagging, { Name = "JENKINS-CICD" })
 }
