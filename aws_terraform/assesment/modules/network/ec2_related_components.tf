@@ -88,3 +88,16 @@ resource "aws_instance" "jenkins" {
   depends_on                  = [aws_security_group.jenkins]
   tags                        = merge(var.tagging, { Name = "JENKINS-CICD" })
 }
+provisioner "remote-exec"{
+  inline = ["echo 'Wait until SSH is ready'"]
+
+  connection{
+    type = "ssh"
+    user = "ec2-user"
+    private_key = file(local.private_key_path)
+    host        = aws_instance.jenkins.public_ip
+}
+}
+provisioner "local-exec"{
+  command = "ansible-playbook -i ${aws_instance.jenkins.public_ip}, --private-key ${local.private_key_path} jenkins.yml"
+}
