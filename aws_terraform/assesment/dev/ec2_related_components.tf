@@ -1,7 +1,7 @@
 ### Creating resources like Security_group,Keypair,EC2 instances.
 
 locals {
-  keypath = "dev/${var.key_name}"
+  keypath = var.key_name
 }
 
 /* Creation of Security Group */
@@ -91,6 +91,10 @@ resource "aws_instance" "jenkins" {
   availability_zone = data.aws_availability_zones.available.names[0]
   depends_on        = [aws_security_group.jenkins]
   tags              = merge(var.tagging, { Name = "JENKINS-CICD" })
+
+  provisioner "local-exec" {
+    command = "echo ${aws_instance.jenkins.public_ip} >> /ansible/hosts"
+  }
   provisioner "remote-exec" {
     inline = ["echo 'Wait until SSH is ready'"]
 
