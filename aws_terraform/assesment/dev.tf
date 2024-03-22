@@ -9,7 +9,7 @@ module "dev" {
   tagging = {
     "Environment"  = "Development",
     "CostCenter"   = "1005100",
-    "Owner"        = "Thangadurai@example.com",
+    "Owner"        = "Thangadurai.murugan@example.com",
     "CreationDate" = "22-03-2024",
     "Project"      = "BlackBox App development"
   }
