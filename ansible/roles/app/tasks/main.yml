@@ -1,0 +1,19 @@
+---
+- name: "Checking disk free"
+  command: df -hT /tmp/
+  register: diskfree
+- debug:
+    var: diskfree.stdout_lines
+- name: "Saving to local file"
+  copy:
+    content: "{{ diskfree.stdout_lines }}"
+    dest: /opt/td/diskfree
+- name: "Uptime Checking"
+  command: uptime -p
+  register: uptime
+- debug:
+    var: uptime.stdout_lines
+- name: "Saving data to local file"
+  copy:
+    content: " {{ uptime.stdout_lines }}"
+    dest: /opt/td/uptime
