@@ -1,0 +1,7 @@
+---
+- name: "This is just simple playbook to invoke ansible role in it"
+  hosts: localhost
+  become: true
+  become_user: ec2-user
+  roles:
+    - app
