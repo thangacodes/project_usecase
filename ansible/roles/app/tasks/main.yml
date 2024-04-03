@@ -7,7 +7,7 @@
 - name: "Saving data to local file"
   copy:
     content: "{{ diskfree.stdout_lines }}"
-    dest: /opt/td/diskfree
+    dest: /tmp/td/diskfree
 - name: "Uptime Checking"
   command: uptime -p
   register: uptime
@@ -16,4 +16,21 @@
 - name: "Saving data to local file"
   copy:
     content: " {{ uptime.stdout_lines }}"
-    dest: /opt/td/uptime
+    dest: /tmp/td/uptime
+- name: "Sleeping for 5 seconds"
+  ansible.builtin.pause:
+    seconds: 5
+- name: "viewing the diskfree and uptime file contents"
+  command: "{{ item }}"
+  args:
+    chdir: "/tmp/td"
+  with_items:
+  - cat diskfree
+  - cat uptime
+- name: "Removing files"
+  command: "rm -f {{ item }}"
+  args:
+    chdir: "/tmp/td"
+  with_items:
+  - uptime
+  - diskfree
