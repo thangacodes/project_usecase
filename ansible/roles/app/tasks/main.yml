@@ -4,7 +4,7 @@
   register: diskfree
 - debug:
     var: diskfree.stdout_lines
-- name: "Saving to local file"
+- name: "Saving data to local file"
   copy:
     content: "{{ diskfree.stdout_lines }}"
     dest: /opt/td/diskfree
