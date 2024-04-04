@@ -1,0 +1,22 @@
+---
+- name: "Adding multiple users in app servers using loop in ansible"
+  hosts: localhost
+  become: true
+  become_user: ec2-user
+  vars:
+    appusers:
+    - username: cmxmgr
+      pass: login123
+    - username: cmxca
+      pass: login123
+  tasks:
+  - name: "Users adding in progress on App servers"
+    user:
+      name: "{{ item.username }}"
+      password: "{{ item.pass | password_hash('sha512') }}"
+    loop: "{{ appusers }}"
+
+
+## To test this one whether the accounts are created or not on linux boxes
+## executing adhoc commands agains app servers, where we created this users.
+# ansible localhost -m command -a "tail -2 /etc/passwd"  ## To get the last two lines of results from passwd file
