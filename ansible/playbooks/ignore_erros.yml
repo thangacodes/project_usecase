@@ -1,0 +1,19 @@
+---
+- name: "Playbook to ignoring errors"
+  hosts: localhost
+  become: yes
+  become_user: ec2-user
+  tasks:
+  - name: "List out the files in /etc/ansible/"
+    command: ls -lrt /etc/ansible/
+    register: ansible_out
+  - debug: var=ansible_out
+  - name: "List out the files in /etc/ansible2/"
+    command: ls -lrt /etc/ansible2/
+    register: ansible2_out
+    ignore_errors: yes
+  - debug: var=ansible2_out
+  - name: "List out the files in /etc/"
+    command: ls -lrt /etc/ansible2/
+    register: etc_out
+  - debug: var=etc_out
