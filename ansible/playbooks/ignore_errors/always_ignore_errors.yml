@@ -1,0 +1,24 @@
+---
+- name: "Playbook to ignoring errors"
+  hosts: localhost
+  become: yes
+  become_user: ec2-user
+  tasks:
+  - block:
+      - name: "List out the files in /etc/ansible/"
+        command: ls -lrt /etc/ansible/
+        register: ansible_out
+      - debug: var=ansible_out
+      - name: "List out the files in /etc/ansible2/"
+        command: ls -lrt /etc/ansible2/
+        register: ansible2_out
+      - debug: var=ansible2_out
+      - name: "List out the files in /etc/"
+        command: ls -lrt /etc/ansible2/
+        register: etc_out
+      - debug: var=etc_out
+    rescue:
+    - debug: msg="This is the rescue in a block of tasks"
+    always:
+    - debug: msg="This can be executed if anything happens."
+## Note: irrespective a block of tasks getting failed or passed this always code should be executed.
