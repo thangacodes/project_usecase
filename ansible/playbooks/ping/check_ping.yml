@@ -1,0 +1,8 @@
+---
+- name: "Checking ping connectivity on remote machines"
+  hosts: webservers
+  tasks:
+  - name: "Script begins now"
+    ping:
+    register: ping_out
+  - debug: var=ping_out

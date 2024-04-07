@@ -1,0 +1,9 @@
+---
+- name: "Checking the ping connectivity to the Google DNS server"
+  hosts: localhost
+  tasks:
+  - name: "Ping Google DNS server"
+    shell: ping -c 1 -w 2 8.8.8.8
+    register: dns_out
+  - debug: var=dns_out
+    ignore_errors: true
