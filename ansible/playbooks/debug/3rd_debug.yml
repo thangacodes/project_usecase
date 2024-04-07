@@ -1,0 +1,8 @@
+---
+- name: "This is my 3rd debug module"
+  hosts: localhost
+  tasks:
+  - name: "This is just print custom message with inbuilt variables"
+    debug:
+      msg:
+      - "This is my custom message on {{ inventory_hostname }}"
