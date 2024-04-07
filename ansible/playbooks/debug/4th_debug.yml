@@ -1,0 +1,7 @@
+---
+- name: "This is my 4th debug playbook"
+  hosts: localhost
+  tasks:
+  - name: "Var debug operation begins"
+    debug:
+      var: inventory_hostname
