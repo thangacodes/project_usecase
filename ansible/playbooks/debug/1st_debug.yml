@@ -1,0 +1,10 @@
+---
+- name: "This is explaning about debug modules"
+  hosts: localhost
+  tasks:
+  - name: "debug begins here"
+    debug:
+      msg:
+      - "This is my first debug playbook"
+      - "IPL 2024 in progress"
+      - "Highest Run scorer so far is Virat Kohli"
