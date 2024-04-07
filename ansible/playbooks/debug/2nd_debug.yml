@@ -1,0 +1,8 @@
+---
+- name: "This is my second debug playbook"
+  hosts: localhost
+  tasks:
+  - name: "run the debug operations on target machine"
+    debug: msg="This is my first debug task"
+  - name: run the debug operations on target machine"
+    debug: msg="This is my 2nd debug task"
