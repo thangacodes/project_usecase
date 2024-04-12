@@ -4,9 +4,9 @@
   become: yes
   become_user: ec2-user
   tasks:
-  - name: "Installing Git binary on RHEL 7"
+  - name: "Installing apache binary on RHEL 7"
     action: yum name=httpd state=present
     when: ansible_os_family == "RedHat"
-  - name: Installing git binary on Ubuntu distribution
+  - name: Installing apache binary on Ubuntu distribution
     action: apt-get name=apache2 state=present
     when: ansible_os_family == "Debian"
