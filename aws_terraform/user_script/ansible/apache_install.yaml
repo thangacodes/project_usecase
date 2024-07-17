@@ -1,4 +1,4 @@
-- name: This sets up an httpd webserver
+- name: "Setting up httpd webserver"
   hosts: aws_ec2
   become: yes
   remote_user: ec2-user
@@ -7,14 +7,13 @@
     ansible_ssh_private_key_file: "/opt/ansible/practical.pem"
     ansible_ssh_user: "ec2-user"
   tasks:
-  - name: "Install httpd,tree and php binaries on Remote machines"
+  - name: "Install httpd,tree binaries on Remote machines"
     package:
       name:
         - "httpd"
         - "tree"
-        - "php"
       state: present
-  - name: "copy index.html file to config dir in remote machines"
+  - name: "Copy index.html file to config dir of the remote machines"
     copy:
       src: index.html
       dest: /var/www/html/index.html
@@ -22,12 +21,8 @@
     service:
         name: httpd
         state: started
-  - name: Yum Install Packages
+  - name: "Installing Yum packages using loop"
     yum: name={{item}} state=latest
     with_items:
        - wget
-  - name: terraform install
-    unarchive:
-      src: https://releases.hashicorp.com/terraform/0.9.1/terraform_0.9.1_linux_amd64.zip
-      dest: /usr/bin
-      remote_src: True
+       - python36
