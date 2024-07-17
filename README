@@ -7,6 +7,8 @@ Project-II: Static website deployment via Terraform code using S3 buckets.
 
 Project-III: Setting Transit Gateway for two different networks in aws instead vpc peering.
 
+Project-IV: A simple bootstrap.sh file to provision infra and apache deployment on an EC2 machine.
+
 project stuff with terraform Automation:-
 
 *aws_secret_manager_with_rds
