@@ -1,8 +1,7 @@
 #!/bin/bash
 set -xe
-
-SERVER_NAME="apache"
 cd terraform
+SERVER_NAME="apache"
 sed -i "s/server_name/${SERVER_NAME}/g" backend_s3.tf
 export TF_VAR_name=${SERVER_NAME}
 
