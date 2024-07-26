@@ -26,8 +26,9 @@ variable "sgp" {
 variable "tagging" {
   default = {
     CreationDate = "26/07/2024"
+    Costcenter   = "1200345"
+    Environment  = "Development"
     Owner        = "admin@example.com"
     Project      = "Blueduck"
-    Costcenter   = "1200345"
   }
 }
