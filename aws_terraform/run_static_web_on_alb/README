@@ -7,3 +7,7 @@
 ### Require components are VPC, Private/Public Subnets, Internet Gateway, Route Table, NAT Gateway, Security Group, Keypair #
 ### EBS Volume, Userdata, Target Group, Application LoadBalancer                                                            #
 #############################################################################################################################
+
+Useful terraform cli:
+$ terraform apply -target=aws_key_pair.labkey
+$ terraform destory -target=aws_key_pair.labkey
