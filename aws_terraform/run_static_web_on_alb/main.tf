@@ -96,7 +96,7 @@ resource "aws_key_pair" "labkey" {
 }
 
 resource "local_file" "key" {
-  filename = "${path.module}/SSH.pem"
+  filename = "${path.module}/${aws_key_pair.labkey.key_name}.pem"
   content  = tls_private_key.privatekey.private_key_pem
 }
 
