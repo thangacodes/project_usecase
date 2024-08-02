@@ -1,0 +1,9 @@
+#############################################################################################################################
+### Name:         Thangadurai, Murugan                                                                                      # 
+### Project:      Hosting a Static Website on EC2 machine                                                                   #
+### Tools:        Terraform Iac, VSCode IDE, Shell Script, Ansible Integration                                              #
+### CreationDate: 01/08/2024                                                                                                #
+### Cloud:        Amazon Web Service - Public Cloud                                                                         #
+### Require components are VPC, Private/Public Subnets, Internet Gateway, Route Table, NAT Gateway, Security Group, Keypair #
+### EBS Volume, Userdata, Target Group, Application LoadBalancer                                                            #
+#############################################################################################################################
