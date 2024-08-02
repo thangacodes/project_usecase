@@ -11,3 +11,11 @@
 Useful terraform cli:
 $ terraform apply -target=aws_key_pair.labkey
 $ terraform destory -target=aws_key_pair.labkey
+===============================================================================================================================
+Public vs Private Hosted Zones: 
+a) Remember, the vpc block is only applicable for private hosted zones where you associate the DNS zone with specific VPCs. 
+b) For public hosted zones, you don’t need to specify any VPC.
+
+Domain Registration: 
+a) Ensure you have registered your domain (cloudbird.fun) through a domain registrar. 
+b) AWS Route 53 does not handle domain registration unless you use it to register the domain directly.
