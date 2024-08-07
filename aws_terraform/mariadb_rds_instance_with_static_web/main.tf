@@ -51,7 +51,7 @@ resource "aws_db_instance" "mysqldb" {
   engine_version       = "10.11.8"
   instance_class       = "db.t3.micro"
   db_name              = "technology"
-  username             = "administrator"
+  username             = ""
   password             = data.aws_secretsmanager_secret_version.secret.secret_string
   parameter_group_name = "default.mariadb10.11"
   skip_final_snapshot  = true
