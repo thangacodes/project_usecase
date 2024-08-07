@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Installing Apache with static web host.."
 
-# Wait for 120 seconds(~2 minutes) to the EC2 machine up/running
+# To system get up/running smooth
 sleep 120
 
 # Update the system
@@ -87,7 +87,13 @@ An experienced DevOps Engineer with a strong background in building and maintain
 <h3> Visit Me:) </h3>
 <p> <font size="4"> To Know about my experience, please visit my LinkedIn page <a href="https://www.linkedin.com/in/thangadurai-murugan-87958556/" target="_blank" rel="noopener noreferrer">MyProfile </a> </font> </p>
 <p> <font size="4"> To Know about my coding/scripting skill, please visit <a href="https://github.com/thangacodes" target="_blank" rel="noopener noreferrer">Thangacodes GitHub! </a> </font> </p>
-<p> <font size="4"> Serving the content from Hostname: '"$hostname"' </font> </p>
+<p>
+  <font size="4">
+    Serving the content from Hostname: 
+    <span style="font-weight: bold; color: blue;">Hostname</span>: 
+    <span style="color: red;">$hostname</span>
+  </font>
+</p>
 </main>
 </body>
 </html>' | sudo tee /var/www/html/index.html
