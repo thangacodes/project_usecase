@@ -5,10 +5,11 @@ eks_terraform % tree
 |-- eks_cluster.tf
 |-- outputs.tf
 |-- providers.tf
+|-- terraform.tfvars
+|-- variables.tf
 |-- vpc.tf
 |-- workernodes.tf
 `-- readme
-1 directory, 6 files
 
 ## To run the following commands, you'll need to have AWSCLI and KUBECTL installed on your local machine.
 ========================================================================================================
