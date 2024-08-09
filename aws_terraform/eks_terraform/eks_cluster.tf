@@ -1,16 +1,5 @@
-resource "aws_eks_cluster" "main" {
-  name     = local.common_name
-  role_arn = aws_iam_role.clusterrole.arn
-
-  vpc_config {
-    subnet_ids             = module.vpc.private_subnets
-    endpoint_public_access = true
-    public_access_cidrs    = ["0.0.0.0/0"]
-  }
-}
-
 resource "aws_iam_role" "clusterrole" {
-  name = "${local.common_name}-cluster"
+  name = "${local.common_name}-ClusterRole"
 
   assume_role_policy = <<POLICY
     {
@@ -36,4 +25,15 @@ resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {
 resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSVPCResourceController" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
   role       = aws_iam_role.clusterrole.name
+}
+
+resource "aws_eks_cluster" "main" {
+  name     = "${local.common_name}-Cluster"
+  role_arn = aws_iam_role.clusterrole.arn
+
+  vpc_config {
+    subnet_ids             = module.vpc.private_subnets
+    endpoint_public_access = true
+    public_access_cidrs    = ["0.0.0.0/0"]
+  }
 }
