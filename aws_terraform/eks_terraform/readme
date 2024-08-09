@@ -1,7 +1,6 @@
 To run the following commands, you'll need to have AWSCLI and KUBECTL installed on your local machine.
-
-
-# aws eks list-clusters --region ap-south-1 --output table       // listing aws eks cluster via awscli
+========================================================================================================
+# aws eks list-clusters --region ap-south-1 --output table       // list out aws eks cluster via awscli in Tabular format
 # echo $KUBECONFIG
 # aws eks update-kubeconfig --name $CLUSTER_NAME                // updating kubeconfi context via awscli to login
 # cat ~/.kube/config                                           // viewing the content of config file sits in user $HOME_DIR
