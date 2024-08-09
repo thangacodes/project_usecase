@@ -17,5 +17,7 @@ To run the following commands, you'll need to have AWSCLI and KUBECTL installed 
 
 # kubectl exec -it nginx-bf5d5cf98-cgbvf -- /bin/bash   // getting into the container
 # apt-get update -y && apt install -y vim              // update apt repository in the container and install vim editor
-# cd /usr/share/nginx/html/index.html                 // is the default NGINX static page config location on Debian Ubuntu OS
+# cd /usr/share/nginx/html/index.html                 // This is Debian Ubuntu's default location for NGINX static page configuration
+# vi index.html                                      // Update the static index.html file to point to this file, so that your web content will be updated/displayed when the ALB accesses the endpoint.
+
 
