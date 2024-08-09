@@ -27,7 +27,6 @@ eks_terraform % tree
 # kubectl delete svc nginx                                     // deleting the running service is called nginx
 # kubectl delete deploy nginx                                 // deleting the deployment called nginx 
 # kubectl get ns                                             // to check namespace 
-
 # kubectl exec -it nginx-bf5d5cf98-cgbvf -- /bin/bash      // getting into the container
 # apt-get update -y && apt install -y vim                 // update apt repository in the container and install vim editor
 # cd /usr/share/nginx/html/index.html                    // This is Debian Ubuntu's default location for NGINX static page configuration
