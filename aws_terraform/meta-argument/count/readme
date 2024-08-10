@@ -1,0 +1,35 @@
+Always keep in mind the DRY principle, which means Don't Repeat Yourself, while writing scripts.
+
+In place of local variables, you can keep variables.tf file in which you declare your variables and update the declared variables values in terraform.tfvars. 
+
+Local variables:
+A Local is only accessible within the local module vs a Terraform variable, which can be scoped globally.
+Another thing to note is that a local in Terraform doesn't change its value once assigned.
+
+Differece between local vs variables?
+The difference is the fact that you cannot set them from an input, nor can you add their value in the *.tfvars file.
+
+The variables that you declared in local can also be declared in variables.tf, and the variables will be called from main.tf file.
+
+Here is an example of variables.tf and terraform.tfvars,
+
+# variables.tf
+variable "region" {}
+variable "availability_zones" {}
+variable "vpc_cidr" {}
+variable "private_subnets_cidr" {}
+variable "public_subnets_cidr" {}
+variable "tagging" {}
+
+#terraform.tfvars
+region               = "ap-south-1"
+availability_zones   = ["ap-south-1a", "ap-south-1b", "ap-south-1c"]
+vpc_cidr             = "200.0.0.0/16"
+private_subnets_cidr = ["200.0.0.0/24", "200.0.1.0/24", "200.0.2.0/24"]
+public_subnets_cidr  = ["200.0.3.0/24", "200.0.4.0/24", "200.0.5.0/24"]
+tagging = {
+  Environment  = "Staging"
+  Public_Cloud = "AWS"
+  Project      = "Cloudbird.fun"
+  Owner        = "thangadurai.murugan@example.com"
+}
