@@ -1,0 +1,30 @@
+## lookup function:
+======================
+* lookup retrieves the value of a single element from a map, given its key. 
+* If the given key does not exist, the given default value is returned instead.
+
+The default syntax:
+lookup(map, key, default)
+
+Usecase Example:-
+==================
+murugat@macbook ~ % terraform console
+
+> lookup({a="aws", b="azure", c="gcp", d="oci"}, "a", "alibaba")
+"aws"
+> lookup({a="aws", b="azure", c="gcp", d="oci"}, "e", "alibaba")
+"alibaba"
+
+VM instance_type selection:-
+=============================
+> lookup({dev="t2.micro", stage="t3.micro", prod="m4.large"}, "dev", "m5.xlarge")
+"t2.micro"
+> lookup({dev="t2.micro", stage="t3.micro", prod="m4.large"}, "sandbox", "m5.xlarge")
+"m5.xlarge"
+
+SSH key association to the vm:-
+================================
+> lookup({dev="dwebkey", stage="swebkey", prod="pwebkey"}, "dev", "dwebkey")
+"dwebkey"
+> lookup({dev="dwebkey", stage="swebkey", prod="pwebkey"}, "sandbox", "dwebkey")
+"dwebkey"
