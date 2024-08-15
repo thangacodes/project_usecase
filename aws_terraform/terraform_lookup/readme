@@ -1,4 +1,4 @@
-## lookup function:
+## lookup function:-
 ======================
 * lookup retrieves the value of a single element from a map, given its key. 
 * If the given key does not exist, the given default value is returned instead.
