@@ -43,8 +43,8 @@ There is a Python script that does the following:
 Execution method:-
 ===================
 It is necessary to install Python3 on your Mac/Linux or Windows OS and then run it as follows,
-$ python --version                //To check python installed version
-$ py __or __ python3 tf_script_validator.py //Run the script like this
+$ python --version                         //To check python installed version
+$ py (OR) python3 tf_script_validator.py  //Run the script like this
 
 
 
