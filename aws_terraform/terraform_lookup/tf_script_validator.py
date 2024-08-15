@@ -26,11 +26,22 @@ def validate_terraform(dir):
     if not files_exist:
         print("No Terraform configuration files (*.tf or *.json) found in the directory")
         return
+    
+    # Check for .terraform directory and .terraform.lock.hcl file
+    terraform_dir_exists = os.path.isdir('.terraform')
+    lock_file_exists = os.path.isfile('.terraform.lock.hcl')
 
+    # Conditionally run terraform init
+    if terraform_dir_exists and lock_file_exists:
+        print(".terraform directory and .terraform.lock.hcl file exist. Skipping terraform init.")
+    else:
+        print("Either .terraform directory or .terraform.lock.hcl file is missing. Running terraform init.")
+        try:
+            subprocess.run(['terraform', 'init'], check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Error during terraform init: {e}")
+            sys.exit(1)
     try:
-        # Run terraform init command
-        tfinit = subprocess.run(['terraform', 'init'])
-        print(f"Terraform initialize is done..!")
         # Run terraform fmt command
         tffmt = subprocess.run(['terraform', 'fmt'], capture_output=True, text=True, check=True)
         print(f"The terraform fmt has executed successfully..!")
@@ -72,3 +83,9 @@ if __name__ == "__main__":
     print_banner()
     time.sleep(5)        
 validate_terraform(dir)
+==================================================================================================================================================================
+## TAKE AWAY:-
+===============
+## * capture_output=True: Captures the command’s output and error messages.
+## * text=True: Returns the output as strings (text), not bytes.
+## * check=True: Raises an exception if the command exits with a non-zero status.
