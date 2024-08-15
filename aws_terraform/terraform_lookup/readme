@@ -28,3 +28,29 @@ SSH key association to the vm:-
 "dwebkey"
 > lookup({dev="dwebkey", stage="swebkey", prod="pwebkey"}, "sandbox", "dwebkey")
 "dwebkey"
+
+Terraform Script Validator:-
+===============================
+There is a Python script that does the following:
+# ** tf_script_validator.py ** verifies if all the files with the extension of .tf or .json aren't and then executes the following Terraform commands
+ $ terraform init
+ $ terraform fmt
+ $ terraform validate
+ $ terraform plan
+ $ terraform apply --auto-approve
+ $ terraform destroy --auto-approve
+
+Execution method:-
+===================
+It is necessary to install Python3 on your Mac/Linux or Windows OS and then run it as follows,
+$ python --version                //To check python installed version
+$ py ** or ** python3 tf_script_validator.py //Run the script like this
+
+
+
+
+
+
+
+
+
