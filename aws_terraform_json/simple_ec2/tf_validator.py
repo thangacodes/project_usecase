@@ -26,18 +26,18 @@ def validate_terraform(dir):
     if not files_exist:
         print("No Terraform configuration files (*.tf or *.json) found in the directory")
         return
-    
     # Check for .terraform directory and .terraform.lock.hcl file
     terraform_dir_exists = os.path.isdir('.terraform')
     lock_file_exists = os.path.isfile('.terraform.lock.hcl')
-
+    tfstate_file_exists = os.path.isfile('terraform.tfstate')
+    tfstate_backup_file_exists = os.path.isfile('terraform.tfstate.backup')
     # Conditionally run terraform init
-    if terraform_dir_exists and lock_file_exists:
-        print(".terraform directory and .terraform.lock.hcl file exist. Skipping terraform init.")
+    if terraform_dir_exists and lock_file_exists and tfstate_file_exists and tfstate_backup_file_exists:
+        print(".terraform directory, .terraform.lock.hcl, terraform.tfstate, and terraform.tfstate.backup files exist. Skipping terraform init.")
     else:
-        print("Either .terraform directory or .terraform.lock.hcl file is missing. Running terraform init.")
+        print("Either .terraform directory or .terraform.lock.hcl or terraform.tfstate or terraform.tfstate.backup files are missing. Running terraform init.")
         try:
-            subprocess.run(['terraform', 'init'], check=True)
+            subprocess.run(['terraform', 'init'])
         except subprocess.CalledProcessError as e:
             print(f"Error during terraform init: {e}")
             sys.exit(1)
@@ -52,7 +52,7 @@ def validate_terraform(dir):
         returncode = tfplan.returncode
         print(f"The terraform plan in progress. and tf plan return code value is: {returncode} ")
         if returncode == 0 :
-            print(f"The returncode value is: 0. Hence, tfplan is looks good and you are good to execute TF APPLY...")
+            print(f"The returncode value is: 0. Hence, tfplan is looks good and you are good to execute TF APPLY/DESTROY...")
         elif returncode !=0:
             print(f"The returncode value is not equal to hence some error in the tfplan. Please cross verify..!")
         else:
