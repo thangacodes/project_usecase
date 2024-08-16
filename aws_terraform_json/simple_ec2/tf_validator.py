@@ -57,29 +57,34 @@ def validate_terraform(dir):
             print(f"The returncode value is not equal to hence some error in the tfplan. Please cross verify..!")
         else:
             print(f"Please check terraform plan command is kept right or wrong and any tf script syntax issue or not..! ")
-        time.sleep(5)
-        USER_INPUT=input("Would you like to proceed with the terraform apply/destroy command, please say yes or no : ")
+        time.sleep(2)
+        USER_INPUT=input("Would you like to proceed with the terraform apply/destroy command, please say apply or destroy : ")
         print(f" User entered value is: {USER_INPUT}")
-        if USER_INPUT == 'yes':
+        if USER_INPUT == 'apply':
             print(f"You are good to execute terraform apply")
             try:
                 tfapply = subprocess.run(['terraform', 'apply', '--auto-approve'])
+                print(tfapply.stdout)
             except subprocess.CalledProcessError as e:
                 print(f"Error executing terraform apply: {e}")
                 print(e.stderr)
-        elif USER_INPUT == 'no':
+        elif USER_INPUT == 'destroy':
             print(f" User entered value is: {USER_INPUT}")
+            print("you are good to execute terraform destroy")
+            try:
+                tfdestroy = subprocess.run(['terraform', 'destroy', '--auto-approve'])
+                print(tfdestroy.stdout)
+            except subprocess.CalledProcessError as e:
+                print(f"Error executing terraform destroy: {e}")
+                print(e.stderr)
         else:
             print(f"The value entered by the user does not meet the condition we specified, therefore this operation is ignored.")
     except subprocess.CalledProcessError as e:
         print("Terraform configuration is invalid.")
-        print(e.stdout)
-        print(e.stderr)
-        
     except Exception as e:
         print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
     print_banner()
-    time.sleep(5)        
-validate_terraform(dir)
+    time.sleep(2)        
+    validate_terraform(dir)
