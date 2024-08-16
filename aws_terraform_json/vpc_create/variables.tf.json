@@ -1,0 +1,18 @@
+{
+    "variable": {
+        "vpccidr": {
+            "description": "The virtual private cloud boundary range",
+            "type": "string",
+            "default": "192.168.0.0/16"
+        },
+        "tags": {
+            "description": "A map of tags to assign to the instance",
+            "type": "map(string)",
+            "default": {
+              "Name": "lab_vpc",
+              "Owner": "thangadurai.murugan@cloudbird.fun",
+              "CreationDate": "16-08-2024"
+            }
+        }
+    }
+}
