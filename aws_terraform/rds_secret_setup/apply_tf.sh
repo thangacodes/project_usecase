@@ -2,7 +2,7 @@
 
 echo "Firstly, executing 'secret_creat.sh' to setup a secret via awscli before rds instance provision by terraform (IaC) ..."
 echo "Invoking a bash_script within $0 .."
-sh secret_creat.sh
+sh create_secret.sh
 
 # Check for .terraform directory and .terraform.lock.hcl file
 if [ -d ".terraform" ] && [ -f ".terraform.lock.hcl" ]; then
