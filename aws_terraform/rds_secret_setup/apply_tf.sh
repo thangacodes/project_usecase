@@ -31,7 +31,7 @@ export TF_VAR_name="${password}"
 terraform plan -var="password=$password"
 
 # Apply Terraform configuration
-terraform apply -var="password=$password"
+terraform apply -var="password=$password" --auto-approve
 
 # Capture the ARN output
 secret_arn=$(terraform output -raw secret_arn)
