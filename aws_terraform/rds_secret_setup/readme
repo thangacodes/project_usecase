@@ -1,0 +1,35 @@
+There are terraform script files and bash script files in this folder, the purpose of this project is to setup MySQL database using an RDS instance.
+
+With the "apply_tf.sh" script, a secret is created for the RDS instance using the SecretsManager service using a password of '20' characters using Python command with the help of "secret_create.sh" script.
+
+Basically, it's like calling a bash script from within a script and doing multiple things at the same time.
+
+Usage:-
+=======
+
+1) Clone this repository, go to the folder, and run apply_tf.sh, which does all the work for you, after which you connect to the RDS_instance endpoint using MySQL client software installed on Mac/Linux/Windows operating systems.
+   $ git clone https://github.com/thangacodes/project_usecase.git
+   $ cd project_usecase/aws_terraform/rds_secret_setup/
+   $ ls -ltr
+   $ sh apply_tf.sh     # You must provide input values wherever it asks you to do so during runtime of the apply_tf.sh script
+
+2) Upon successful execution of the bash/terraform script, you will get the output values in terraform. Take the endpoint and connect the MySQL database using the MySQL client software on your computer.
+
+3) If you receive any error when connecting to the database from your system, you need to add your system IP, in this case public IP/32, to the RDS instance security group.
+    https://whatismyipaddress.com/ (example public ip is: 49.206.120.60/32)
+
+4) You can retrieve and use the Database master password from the SecretsManager secrets tab
+
+Project Structure:-
+===================
+tree
+.
+├── apply_tf.sh
+├── create_secret.sh
+├── providers.tf
+├── rds_instance_secret.tf
+├── terraform.tfvars
+└── variables.tf
+
+1 directory, 6 files
+   
