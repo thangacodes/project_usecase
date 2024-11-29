@@ -1,7 +1,6 @@
 This is for setting up a Managed Streaming Kafka cluster in AWS.
 
 The folder and file structure are as follows:
-
 .
 ├── bootstrap.sh
 ├── main.tf
@@ -10,7 +9,6 @@ The folder and file structure are as follows:
 ├── terraform.tfvars
 └── variables.tf
 1 directory, 5 files
-
 
 How to Test the Terraform Code in a Local Development Environment?
 
@@ -23,7 +21,6 @@ cd aws_msk
 Update your AWS access_key and secret_access_key in terraform.tfvars file
 
 Execute the following Terraform commands:
-
 terraform init
 terraform fmt
 terraform validate
