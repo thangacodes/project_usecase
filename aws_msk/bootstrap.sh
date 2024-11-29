@@ -16,14 +16,27 @@ sudo yum install -y java-1.8.0-openjdk-devel
 java -version
 
 # Download and install Kafka
+echo "Downloading Kafka 3.8.1..."
 cd /tmp/
 wget https://downloads.apache.org/kafka/3.8.1/kafka_2.12-3.8.1.tgz
 
-# Extract Kafka
+# Step 2: Extract Kafka
+echo "Extracting Kafka..."
 tar xzf kafka_2.12-3.8.1.tgz
 
-# Optionally, add Kafka to PATH or setup configurations as required
+# Step 3: Add Kafka to PATH (optional)
+echo "Adding Kafka to PATH..."
 export PATH=$PATH:/tmp/kafka_2.12-3.8.1/bin
+
+# Step 4: Create the client.properties file
+echo "Creating and configuring client.properties..."
+mkdir -p /tmp/kafka_2.12-3.8.1/config
+cat <<EOF > /tmp/kafka_2.12-3.8.1/config/client.properties
+security.protocol=SASL_SSL
+sasl.mechanism=AWS_MSK_IAM
+sasl.jaas.config=software.amazon.msk.auth.iam.IAMLoginModule required;
+sasl.client.callback.handler.class=software.amazon.msk.auth.iam.IAMClientCallbackHandler;
+EOF
 
 # Download MSK IAM Authentication JAR:
 wget https://github.com/aws/aws-msk-iam-auth/releases/download/v2.2.0/aws-msk-iam-auth-2.2.0-all.jar
