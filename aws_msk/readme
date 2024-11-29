@@ -1,12 +1,4 @@
 This is for setting up a Managed Streaming Kafka cluster in AWS.
-
-
-
-
-
-
-
-
 The folder and file structure are as follows:
 .
 ├── bootstrap.sh
