@@ -27,7 +27,7 @@ resource "aws_msk_cluster" "demo" {
 
   broker_node_group_info {
     instance_type   = var.kafka_ins_type
-    client_subnets  = data.aws_subnets.def_public_subnets.ids
+    client_subnets  = slice(data.aws_subnets.def_public_subnets.ids, 0, 2)
     security_groups = var.security_groups
   }
 }
