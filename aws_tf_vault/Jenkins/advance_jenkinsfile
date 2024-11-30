@@ -3,11 +3,11 @@ pipeline {
 
     environment {
         TERRAFORM_PATH = '/usr/local/bin/terraform'
-        SCRIPT_DIR = '/Users/murugat/Documents/ssl/tf_python/Vault_config/tf-vault'
+        SCRIPT_DIR = '/Users/demot/Documents/ssl/tf_python/Vault_config/tf-vault'
     }
 
     stages {
-        stage('Initialization') {
+        stage('Init') {
             steps {
                 script {
                     try {
