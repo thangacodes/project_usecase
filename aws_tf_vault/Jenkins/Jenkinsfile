@@ -1,0 +1,115 @@
+// Groovy function definition outside the pipeline block
+def runTerraformInit() {
+    sh """
+        echo 'Checking Terraform Version'
+        /usr/local/bin/terraform --version
+        cd /Users/td/Documents/ssl/tf_python/Vault_config/tf-vault
+        pwd
+        sleep 3
+        ls -l
+        /usr/local/bin/terraform init
+    """
+}
+
+def runTerraformFmt() {
+    sh """
+        cd /Users/td/Documents/ssl/tf_python/Vault_config/tf-vault
+        ls -l
+        /usr/local/bin/terraform fmt
+    """
+}
+
+def runTerraformValidate() {
+    sh """
+        cd /Users/td/Documents/ssl/tf_python/Vault_config/tf-vault
+        ls -l
+        /usr/local/bin/terraform validate
+    """
+}
+
+def runTerraformPlan() {
+    sh """
+        cd /Users/td/Documents/ssl/tf_python/Vault_config/tf-vault
+        ls -l
+        /usr/local/bin/terraform plan
+    """
+}
+
+def runTerraformApply() {
+    sh """
+        cd /Users/td/Documents/ssl/tf_python/Vault_config/tf-vault
+        ls -l
+        /usr/local/bin/terraform apply -auto-approve
+    """
+}
+def runTerraformDestroy() {
+    sh """
+        cd /Users/td/Documents/ssl/tf_python/Vault_config/tf-vault
+        ls -l
+        /usr/local/bin/terraform destroy -auto-approve
+    """
+}
+
+pipeline {
+    agent any
+    parameters {
+    choice(name: 'PROCEED_WITH_APPLY', choices: ['yes', 'no'], description: 'Do you want to proceed with Terraform Apply?')
+    choice(name: 'PROCEED_WITH_DESTROY', choices: ['yes', 'no'], description: 'Do you want to proceed with Terraform Destroy?')
+}
+    stages {
+        stage('Terraform Init') {
+            steps {
+                script {
+                    runTerraformInit()
+                }
+            }
+        }
+        stage('Terraform Format') {
+            steps {
+                script {
+                    runTerraformFmt()
+                }
+            }
+        }
+        stage('Terraform Validate') {
+            steps {
+                script {
+                    runTerraformValidate()
+                }
+            }
+        }
+        stage('Terraform Plan') {
+            steps {
+                script {
+                    runTerraformPlan()
+                }
+            }
+        }
+        stage('Terraform Apply') {
+            when {
+                // Execute this stage only if the user chooses 'yes'
+                expression {
+                    return params.PROCEED_WITH_APPLY == 'yes'
+                }
+            }
+            steps {
+                script {
+                    runTerraformApply()
+                }
+            }
+        }
+        stage('Terraform Destroy') {
+            when {
+                // Execute this stage only if the user chooses 'yes'
+                expression {
+                    return params.PROCEED_WITH_DESTROY == 'yes'
+                }
+            }
+            steps {
+                script {
+                    runTerraformDestroy()
+                }
+            }
+        }
+    }
+}
