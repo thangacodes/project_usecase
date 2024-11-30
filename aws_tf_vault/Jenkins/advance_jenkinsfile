@@ -1,0 +1,154 @@
+pipeline {
+    agent any
+
+    environment {
+        TERRAFORM_PATH = '/usr/local/bin/terraform'
+        SCRIPT_DIR = '/Users/murugat/Documents/ssl/tf_python/Vault_config/tf-vault'
+    }
+
+    stages {
+        stage('Initialization') {
+            steps {
+                script {
+                    try {
+                        checkTerraformVersion()
+                        listScriptFiles()
+                        initializeTerraform()
+                    } catch (Exception e) {
+                        currentBuild.result = 'FAILURE'
+                        echo "Error: ${e.getMessage()}"
+                        throw e
+                    }
+                }
+            }
+        }
+        stage('Format') {
+            steps {
+                script {
+                    try {
+                        listScriptFiles()
+                        FormatTerraform()
+                    } catch (Exception e) {
+                        currentBuild.result = 'FAILURE'
+                        echo "Error: ${e.getMessage()}"
+                        throw e
+                    }
+                }
+            }
+        }
+        stage('Validate') {
+            steps {
+                script {
+                    try {
+                        listScriptFiles()
+                        ValidateTerraform()
+                    } catch (Exception e) {
+                        currentBuild.result = 'FAILURE'
+                        echo "Error: ${e.getMessage()}"
+                        throw e
+                    }
+                }
+            }
+        }
+        stage('Plan') {
+            steps {
+                script {
+                    try {
+                        listScriptFiles()
+                        PlanTerraform()
+                    } catch (Exception e) {
+                        currentBuild.result = 'FAILURE'
+                        echo "Error: ${e.getMessage()}"
+                        throw e
+                    }
+                }
+            }
+        }
+    }
+}
+
+def checkTerraformVersion() {
+    echo 'Checking Terraform Version...'
+
+    def terraformVersion = sh(script: "${TERRAFORM_PATH} --version", returnStdout: true).trim()
+
+    if (terraformVersion) {
+        echo "Terraform Version: ${terraformVersion}"
+    } else {
+        error "Terraform is not installed or not found at ${TERRAFORM_PATH}."
+    }
+}
+
+def listScriptFiles() {
+    echo "Listing files in the script directory: ${SCRIPT_DIR}"
+    def files = sh(script: "ls -lrt ${SCRIPT_DIR}", returnStdout: true).trim()
+
+    if (files) {
+        echo "Files in ${SCRIPT_DIR}:"
+        echo "${files}"
+    } else {
+        error "No files found in the specified directory: ${SCRIPT_DIR}."
+    }
+}
+
+def initializeTerraform() {
+    echo "Initializing Terraform..."
+
+    dir("${SCRIPT_DIR}") {
+        def initOutput = sh(script: "${TERRAFORM_PATH} init", returnStdout: true).trim()
+
+        if (initOutput?.trim()) {
+            echo "Terraform initialized successfully."
+        } else {
+            error "Terraform initialization failed: ${initOutput}"
+        }
+    }
+}
+
+def FormatTerraform() {
+    echo "Formatting Terraform..."
+
+    dir("${SCRIPT_DIR}") {
+        def fmtOutput = sh(script: "${TERRAFORM_PATH} fmt -check", returnStdout: true).trim()
+        if (fmtOutput.contains("Formatting")) {
+            echo "Terraform files formatted successfully."
+        } else {
+            echo "Terraform files are already properly formatted."
+        }
+    }
+}
+
+def ValidateTerraform() {
+    echo "Validating Terraform..."
+
+    dir("${SCRIPT_DIR}") {
+        def validOutput = sh(script: "${TERRAFORM_PATH} validate", returnStdout: true).trim()
+
+        if (validOutput.contains("configuration is valid")) {
+            echo "Terraform validated and it looks good."
+        } else {
+            echo "No validations happened."
+        }
+    }
+}
+
+def PlanTerraform() {
+    echo "Planning (BluePrint) Terraform..."
+    dir("${SCRIPT_DIR}") {
+        try {
+            // Run the terraform plan command and capture output
+            def planOutput = sh(script: "${TERRAFORM_PATH} plan -out=tfplan", returnStdout: true).trim()
+
+            // Check if there was any output and echo it
+            if (planOutput) {
+                echo "Terraform Plan Output: ${planOutput}"
+            } else {
+                echo "Terraform plan executed successfully, but no output was captured."
+            }
+        } catch (Exception e) {
+            // If an error occurs during the plan, log the error
+            echo "Terraform plan failed: ${e.getMessage()}"
+            currentBuild.result = 'FAILURE'
+        }
+    }
+}
