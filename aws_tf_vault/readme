@@ -20,9 +20,10 @@ aws configure --profile <profile_name> unset
 ## Set the VAULT_ADDR Environment Variable:
 export VAULT_ADDR=http://127.0.0.1:8200
 
-## In order to login on mac os using local, we need to token. Generate it, 
-vault token create -address=http://127.0.0.1:8200                    
+## To log in to the Vault UI on macOS using the development method, you need a token. Generate the token using the method below.
+Go to Terminal, run the command below,
 vault status
+vault token create -address=http://127.0.0.1:8200     //Keep the token in safer custody.               
 
 ## VAULT CLI to create secrets
 vault kv put secret/db-username-secret db_username=admin
