@@ -1,0 +1,106 @@
+export VAULT_ADDR="http://127.0.0.1:8200"
+env
+vault token lookup
+id: hvs.<token>        //using this token, you can login to vault local instance URL
+vault secrets enable aws
+
+# First enabling aws secrets engine on vault server
+$ vault secrets enable aws
+$ vault secrets disable aws
+# Updating an IAM user API credential as below,
+$ vault write aws/config/root \
+> access_key =xcsdfdfdgsagasgf \
+> secret_key = kdlfhn324324ertegfdcrewdf \
+> region=ap-south-1
+
+# To read the value that we set via write method,
+$ vault read aws/config/root 
+
+# To rotate the access_key frequently
+$ vault write -f aws/config/rotate-root
+$ vault read aws/config/root
+
+## IAM ROLE based 
+$ vault write aws/roles/vaultadvanced \
+> policy_arns=arn:aws:iam:aws:policy/ReadOnlyAccess \
+> credential_type=iam_user 
+
+## to read the value of an iam role that we define above,
+$ vault read aws/roles/vaultadvanced
+
+## to lease the iam vault role,
+$ vault lease revoke aws/creds/lease_id
+
+## One shot, we can remove all the lease for an iam roles
+$ vault lease revoke -prefix aws/creds/lease_id
+
+## KV create on a secret
+vault secrets enable -path=training/app/aws kv
+vault secrets enable -path=training/app/jenkins kv 
+vault secrets disable training/app/aws kv
+vault secrets disable training/app/jenkins
+vault secrets list --detailed
+vault kv put training/app/aws access_key=isndknsafsadfadf secret_access_key=123ewfdgadsfadsfgrtdyfxzcvbweasfgdadsfg region=ap-south-1
+vault kv get training/app/aws
+vault kv put training/app/jenkins user=jenkins-admin password=login1-2
+vault kv get training/app/jenkins
+vault kv put training/app/aws access_key=access-key secret_access_key=secret-access-key region=ap-south-1
+vault kv get training/app/aws
+vault kv get -format=json training/app/aws
+vault kv get -format=json training/app/aws | jq -r ".data.access_key"
+vault kv get -format=json training/app/aws | jq -r ".data.secret_access_key"
+vault kv get -format=json training/app/jenkins | jq -r ".data.password"
+vault kv get -format=json training/app/jenkins | jq -r ".data.user"
+vault secrets disable training/app/aws
+vault secrets disable training/app/jenkins
+vault kv delete training/app/jenkins
+vault kv delete training/app/aws
+vault secrets enable -path=apikeys/aws kv
+vault kv put apikeys/aws/credentials access_key=aws-access-key secret_key=aws_secret_access_key region=ap-south-1
+vault kv get -format=json apikeys/aws/credentials
+vault kv get -format=json apikeys/aws/credentials | jq -r ".data.access_key"
+vault kv get -format=json apikeys/aws/credentials | jq -r ".data.secret_key"
+
+Version 2 (V2)
+## In-order to create kv v2 secrets path, 
+vault secrets enable -path=training kv-v2  //You need to specify which version would you like to create it v1 or v2 
+vault secrets disable training            //If you need to disable it
+
+## If you have a secrets that was created using KV v1, how can you upgrade it to KV v2?
+vault secrets enable -path=training/app/aws kv   //This was created using KV v1
+vault secrets list --detailed                   //From this output, you might see an options as map[]
+## How to upgrade it to KV v2?
+vault kv enable-versioning training/app/aws    //Command to upgrade KV v2 
+## Verify using list 
+vault secrets list --detailed                //From this output, you might see an options as map[version:2] 
+## To disable the secrets
+vault secrets disable training              //This command will delete the secrets on the Vault server
+## vault secrets kv v2 creation
+vault secrets enable -path=kvv2 -description="This is KV v2 secret path" kv-v2      //This command will create the secrets on the Vault server using KV v2
+vault kv put kvv2/family/names owner=thangadurai co-owner=eashwari first-daughter=vedhu second-daughter=anvi 
+vault kv get kvv2/family/names
+vault kv get -format=json kvv2/family/names
+vault kv get -format=json kvv2/family/names | jq -r '.data.data."co-owner"'
+vault kv get -format=json kvv2/family/names | jq -r '.data.data."owner"'
+vault kv get -format=json kvv2/family/names | jq -r '.data.data."first-daughter"'
+vault kv get -format=json kvv2/family/names | jq -r '.data.data."second-daughter"'
+vault kv put kvv2/family/names owner=thangadurai co-owner=eashwari first-daughter=vedhu second-daughter=anvika
+vault kv get kvv2/family/names
+vault kv get -format=json kvv2/family/names
+vault kv get -version=1 kvv2/family/names
+vault kv delete kvv2/family/names
+vault kv undelete -versions=2 kvv2/family/names   //to retrieve KV v2 data values
+vault kv get -format=json -version=1 kvv2/family/names
+vault kv get -format=json -version=2 kvv2/family/names
+vault kv get -format=json -version=1 kvv2/family/names | jq -r '.data.data."co-owner"'
+vault kv get -format=json -version=2 kvv2/family/names | jq -r '.data.data."co-owner"'
+vault kv metadata get kvv2/family/names
+vault kv get kvv2/aws/apikeys
+curl --header "X-Vault-Token: hvs.<token>" http://127.0.0.1:8200/v1/kvv2/data/apps/jenkins
+curl --header "X-Vault-Token: hvs.<token>" http://127.0.0.1:8200/v1/kvv2/data/apps/jenkins | jq
+curl --header "X-Vault-Token: hvs.<token>" http://127.0.0.1:8200/v1/kvv2/data/apps/jenkins | jq -r '.data.data."username"'
+curl --header "X-Vault-Token: hvs.<token>" http://127.0.0.1:8200/v1/kvv2/data/apps/jenkins | jq -r '.data.data."password"'
+vault kv get kvv2/aws/apikeys
+curl --header "X-Vault-Token: hvs.<token>" http://127.0.0.1:8200/v1/kvv2/data/aws/apikeys
+curl --header "X-Vault-Token: hvs.<token>" http://127.0.0.1:8200/v1/kvv2/data/aws/apikeys | jq -r '.data.data."access_key"'
+curl --header "X-Vault-Token: hvs.<token>" http://127.0.0.1:8200/v1/kvv2/data/aws/apikeys | jq -r '.data.data."secret_key"'
