@@ -9,8 +9,8 @@ $ vault secrets enable aws
 $ vault secrets disable aws
 # Updating an IAM user API credential as below,
 $ vault write aws/config/root \
-> access_key =xcsdfdfdgsagasgf \
-> secret_key = kdlfhn324324ertegfdcrewdf \
+> access_key =accesskey \
+> secret_key = secretkey \
 > region=ap-south-1
 
 # To read the value that we set via write method,
@@ -40,7 +40,7 @@ vault secrets enable -path=training/app/jenkins kv
 vault secrets disable training/app/aws kv
 vault secrets disable training/app/jenkins
 vault secrets list --detailed
-vault kv put training/app/aws access_key=isndknsafsadfadf secret_access_key=123ewfdgadsfadsfgrtdyfxzcvbweasfgdadsfg region=ap-south-1
+vault kv put training/app/aws access_key=access-key secret_access_key=secret-key region=ap-south-1
 vault kv get training/app/aws
 vault kv put training/app/jenkins user=jenkins-admin password=login1-2
 vault kv get training/app/jenkins
