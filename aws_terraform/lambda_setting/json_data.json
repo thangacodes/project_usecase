@@ -1,0 +1,32 @@
+{
+    "whoami": {
+        "name": "david",
+        "age": "35",
+        "education": "B.E",
+        "village": "Bonney",
+        "state": "Texas",
+        "native": "Bonney",
+        "district": "Bonney",
+        "pincode": "77515"
+    },
+    "work": {
+        "company": "try-devops.xyz",
+        "Designation": "Senior DevOps Engineer",
+        "Manager": "Tom Cruise",
+        "Tech Lead": "John Cena"
+    },
+    "myfamily": {
+        "Wifename": "maria",
+        "Daughter1": "mary",
+        "Daughter2": "misha"
+    },
+    "devops": {
+        "VersionControl": "GitHub",
+        "CICD": "CloudBees Jenkins",
+        "Iac": "Terraform",
+        "Scripting": "Bash/Python",
+        "Operating systems": "Linux OS",
+        "Secrets Management": "Hashicop Vault",
+        "Databases": "RDS Postgres, Oracle DB"
+    }
+}
