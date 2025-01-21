@@ -4,29 +4,29 @@ Here are the steps to clone and execute the script:
 
 1. Clone the repository:
    
-git clone https://github.com/thangacodes/project_usecase.git
+   git clone https://github.com/thangacodes/project_usecase.git
 
 3. Navigate to the lambda_setting directory:
 
-cd lambda_setting
+   cd lambda_setting
 
 5. List the files in the directory:
    
-ls -l
+   ls -l
 
 7. Then, execute the following Terraform commands:
 
-terraform init
+   terraform init
 
-terraform fmt
+   terraform fmt
 
-terraform validate
+   terraform validate
 
-terraform plan
+   terraform plan
 
-terraform apply --auto-approve
+   terraform apply --auto-approve
 
-terraform destroy --auto-approve
+   terraform destroy --auto-approve
 
 Please note: I'm using an AWS profile to provide the access_key and secret_access_key for interacting with AWS APIs in the Mumbai region. 
 
