@@ -27,6 +27,6 @@
         "Scripting": "Bash/Python",
         "Operating systems": "Linux OS",
         "Secrets Management": "Hashicop Vault",
-        "Databases": "RDS Postgres, Oracle DB"
+        "Databases": "RDS Aurora Postgres, Oracle DB"
     }
 }
