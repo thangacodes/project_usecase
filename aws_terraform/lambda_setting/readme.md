@@ -15,10 +15,13 @@ terraform validate
 terraform plan
 terraform apply --auto-approve
 terraform destroy --auto-approve
+
 Please note: I'm using an AWS profile to provide the access_key and secret_access_key for interacting with AWS APIs in the Mumbai region. 
+
 I recommend setting up the profile first, then executing the Terraform commands one after another.
 
 I also have an existing S3 bucket that doesn't have a bucket policy. 
+
 Therefore, I am attaching the policy to the bucket and configuring the Lambda function to invoke the JSON file from the existing bucket.
 
 # Disclaimer: This is at the user's discretion.
