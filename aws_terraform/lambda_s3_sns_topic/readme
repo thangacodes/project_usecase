@@ -3,9 +3,13 @@
 This project contains Terraform scripts, along with Python and Bash scripts, to set up the following in AWS Cloud:
 
 a) Creation of an S3 bucket
+
 b) Creation of an IAM role with appropriate permissions
+
 c) Creation of an SNS topic and subscription
+
 d) Creation of a Lambda function and trigger for the S3 bucket
+
 e) Finally, an email alert or notification will be sent if any malware files are uploaded to the specified or any available S3 buckets
 
 # Folder Structure:
