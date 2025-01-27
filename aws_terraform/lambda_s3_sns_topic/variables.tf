@@ -1,0 +1,10 @@
+variable "aws_profile_name" {}
+variable "region" {}
+variable "filename" {}
+variable "bucket_name" {}
+variable "role_name" {}
+variable "topic_name" {}
+variable "protocol" {}
+variable "mail_endpoint" {}
+variable "runtime" {}
+variable "handler" {}

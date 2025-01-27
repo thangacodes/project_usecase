@@ -1,0 +1,27 @@
+# S3_LAMBDA_SNS_TOPIC:
+
+This project contains Terraform scripts, along with Python and Bash scripts, to set up the following in AWS Cloud:
+
+a) Creation of an S3 bucket
+b) Creation of an IAM role with appropriate permissions
+c) Creation of an SNS topic and subscription
+d) Creation of a Lambda function and trigger for the S3 bucket
+e) Finally, an email alert or notification will be sent if any malware files are uploaded to the specified or any available S3 buckets
+
+# Folder Structure:
+.
+├── lambda
+│   ├── empty_s3bucket.sh
+│   ├── evidence_identity.zip
+│   ├── evidence_identity_alert_s3.py
+│   ├── hcv.code-workspace
+│   ├── make_zip.sh
+│   └── malware_file_creation.sh
+├── main.tf
+├── outputs.tf
+├── providers.tf
+├── terraform.tfvars
+├── tfbash
+│   └── tf_operation.sh
+└── variables.tf
+
