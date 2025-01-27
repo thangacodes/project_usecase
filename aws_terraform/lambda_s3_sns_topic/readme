@@ -25,3 +25,16 @@ e) Finally, an email alert or notification will be sent if any malware files are
 │   └── tf_operation.sh
 └── variables.tf
 
+How to run the terraform script?
+
+a) Clone the repository to your local machine or wherever you want to store the code
+   git clone https://github.com/thangacodes/project_usecase.git
+   cd project_usecase/aws_terraform/lambda_s3_sns_topic/
+b) Run the bash script to perform the main Terraform actions
+   sh tfbash/tf_operation.sh
+c) Choose the action you would like to perform:
+    init, fmt, validate, plan, apply, destroy
+d) Finally, log in to the AWS console and check if the resources have been provisioned.
+
+Note: As soon as the SNS topic and subscription are created, you will receive a notification at the specified email address. 
+Please accept the subscription.
