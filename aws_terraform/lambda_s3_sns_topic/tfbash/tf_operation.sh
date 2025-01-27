@@ -17,7 +17,7 @@ source ~/.bashrc
 tf_init(){
     echo "terraform init in progress.."
     echo 
-    tf_files_location="/Users/murugat/Desktop/hcv/evidence_identity_s3"
+    tf_files_location="/Users/td/Desktop/hcv/evidence_identity_s3"
     cd $tf_files_location
     ls -ltr
     tfinit
@@ -25,7 +25,7 @@ tf_init(){
 tf_fmt(){
     echo "terraform format in progress.."
     echo 
-    tf_files_location="/Users/murugat/Desktop/hcv/evidence_identity_s3"
+    tf_files_location="/Users/td/Desktop/hcv/evidence_identity_s3"
     cd $tf_files_location
     ls -ltr
     tffmt
@@ -33,7 +33,7 @@ tf_fmt(){
 tf_validate(){
     echo "terraform init in progress.."
     echo 
-    tf_files_location="/Users/murugat/Desktop/hcv/evidence_identity_s3"
+    tf_files_location="/Users/td/Desktop/hcv/evidence_identity_s3"
     cd $tf_files_location
     ls -ltr
     tfvalidate
@@ -42,13 +42,13 @@ tf_validate(){
 tf_plan(){
     echo "terraform plan in progress.."
     echo 
-    tf_files_location="/Users/murugat/Desktop/hcv/evidence_identity_s3"
+    tf_files_location="/Users/td/Desktop/hcv/evidence_identity_s3"
     tfplan
 }
 tf_destroy(){
     echo "terraform destroy in progress.."
     echo 
-    tf_files_location="/Users/murugat/Desktop/hcv/evidence_identity_s3"
+    tf_files_location="/Users/td/Desktop/hcv/evidence_identity_s3"
     read -p "Do you want to proceed? (yes/no):" USER_INPUT
     echo "User entered the input as:" $USER_INPUT
     sleep 2
@@ -69,7 +69,7 @@ tf_destroy(){
 tf_apply(){
     echo "terraform apply in progress.."
     echo
-    tf_files_location="/Users/murugat/Desktop/hcv/evidence_identity_s3"
+    tf_files_location="/Users/td/Desktop/hcv/evidence_identity_s3"
     read -p "Do you want to proceed? (yes/no):" USER_INPUT
     echo "User entered the input as:" $USER_INPUT
     sleep 2
