@@ -1,0 +1,9 @@
+variable "region" {}
+variable "profile" {}
+variable "vpc_cidrip" {}
+variable "dev_subnet_ipranges" {}
+variable "stage_subnet_ipranges" {}
+variable "prod_subnet_ipranges" {}
+variable "ami_id" {}
+variable "sshkey" {}
+variable "vmspec" {}
