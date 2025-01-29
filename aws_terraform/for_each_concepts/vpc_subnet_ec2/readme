@@ -1,1 +1,20 @@
 The Terraform IaC is used to create three VPCs in an account to deploy and configure the app workloads for the respective environments, such as dev, staging, and prod.
+
+Here, this mainly happens using the for_each meta-argument concept.
+
+Here's the folder structure:
+.
+├── main.tf
+├── outputs.tf
+├── providers.tf
+├── terraform.tfvars
+└── variables.tf
+1 directory, 5 files
+
+How do I fork this code and make use of it?
+
+a) Clone the repository to your local machine or wherever you want to store the code
+   git clone https://github.com/thangacodes/project_usecase.git
+   cd project_usecase/aws_terraform/for_each_concepts/vpc_subnet_ec2/
+b) Run terraform commands like: init, validate, plan, apply and destroy
+c) Finally, log in to the AWS console and check if the resources have been provisioned.
