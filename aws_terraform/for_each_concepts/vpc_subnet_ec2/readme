@@ -1,0 +1,1 @@
+The Terraform IaC is used to create three VPCs in an account to deploy and configure the app workloads for the respective environments, such as dev, staging, and prod.
