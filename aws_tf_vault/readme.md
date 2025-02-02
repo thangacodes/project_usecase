@@ -1,4 +1,5 @@
 ## Vault:
+
 HashiCorp Vault is an open-source tool designed for managing and securing sensitive data, such as secrets, passwords, API keys, certificates, and encryption keys.
 
 ## Installation and Configuration:
