@@ -33,35 +33,46 @@ project stuff with terraform Automation:-
 *user_script
 
 
-## Please note:
 # Authenticating to AWS with Terraform
-# There are many ways to authenticate using the Terraform AWS provider. 
-# Configuration for the AWS Provider can be derived from several sources, which are applied in the following order:
 
-# Parameters in the provider configuration
-# Environment variables
-# Shared credentials and configuration files
-# Container credentials
-# Instance profile credentials and region
-# External credentials process
+There are many ways to authenticate using the Terraform AWS provider. 
+
+Configuration for the AWS Provider can be derived from several sources, which are applied in the following order:
+
+Parameters in the provider configuration
+
+Environment variables
+
+Shared credentials and configuration files
+
+Container credentials
+
+Instance profile credentials and region
+
+External credentials process
 
 To view all current AWS-related environment variables, you can use:
+
 ```bash
 printenv | grep AWS
 
 If Terraform has cached some old credentials or configuration, try clearing it by running:
+
 ```bash
 terraform init --reconfigure
 
-## AWS CLI commands
+AWS CLI commands
+
 ```bash
-$ aws s3 ls --profile vault_admin
-$ aws sts get-caller-identity  --profile vault_admin –query account –output text 
-$ aws sts get-caller-identity --profile vault_admin // This is useful to verify which IAM user or role is being used when making AWS API calls
+aws s3 ls --profile vault_admin
+aws sts get-caller-identity  --profile vault_admin –query account –output text 
+aws sts get-caller-identity --profile vault_admin // This is useful to verify which IAM user or role is being used when making AWS API calls
 
 JSON query language:
-## 'jq' is a powerful command-line tool for processing and querying JSON data
+
+'jq' is a powerful command-line tool for processing and querying JSON data
+
 ```bash
-$ aws sts get-caller-identity --profile vault_admin | jq -r '.Account'
-$ aws sts get-caller-identity --profile vault_admin | jq -r '.Arn'
-$ aws sts get-caller-identity --profile vault_admin | jq -r '.UserId'
+aws sts get-caller-identity --profile vault_admin | jq -r '.Account'
+aws sts get-caller-identity --profile vault_admin | jq -r '.Arn'
+aws sts get-caller-identity --profile vault_admin | jq -r '.UserId'
