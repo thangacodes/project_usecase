@@ -6,7 +6,3 @@ which is the Terraform Cloud or Terraform Enterprise.
 $ terraform --version
 
 Terraform v1.10.5
-
-on darwin_amd64
-
-+ provider registry.terraform.io/hashicorp/aws v5.84.0
