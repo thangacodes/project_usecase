@@ -2,6 +2,8 @@
 HashiCorp Vault is an open-source tool designed for managing and securing sensitive data, such as secrets, passwords, API keys, certificates, and encryption keys.
 
 ## Installation and Configuration:
+
+```bash
 This page contains instructions on how to install and configure a Vault development server locally on macOS.
 brew tap hashicorp/tap
 brew install hashicorp/tap/vault
