@@ -3,19 +3,19 @@ This repository contains Terraform script files, along with Python and JSON file
 Here are the steps to clone and execute the script:
 
 1. Clone the repository:
-   
+   ```bash
    git clone https://github.com/thangacodes/project_usecase.git
 
 3. Navigate to the lambda_setting directory:
-
+   ```bash
    cd lambda_setting
 
 5. List the files in the directory:
-   
+   ```bash
    ls -l
 
 7. Then, execute the following Terraform commands:
-
+   ```bash
    terraform init
 
    terraform fmt
