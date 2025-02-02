@@ -64,13 +64,13 @@ terraform init --reconfigure
 AWS CLI commands
 
 aws s3 ls --profile vault_admin
-aws sts get-caller-identity  --profile vault_admin –query account –output text 
-aws sts get-caller-identity --profile vault_admin // This is useful to verify which IAM user or role is being used when making AWS API calls
+aws sts get-caller-identity  --profile ${profile_name} –query account –output text 
+aws sts get-caller-identity --profile  ${profile_name}  // This is useful to verify which IAM user or role is being used when making AWS API calls
 
 JSON query language:
 
 'jq' is a powerful command-line tool for processing and querying JSON data
 
-aws sts get-caller-identity --profile vault_admin | jq -r '.Account'
-aws sts get-caller-identity --profile vault_admin | jq -r '.Arn'
-aws sts get-caller-identity --profile vault_admin | jq -r '.UserId'
+aws sts get-caller-identity --profile ${profile_name}  | jq -r '.Account'
+aws sts get-caller-identity --profile ${profile_name}  | jq -r '.Arn'
+aws sts get-caller-identity --profile ${profile_name}  | jq -r '.UserId'
